@@ -25,6 +25,8 @@ import java.util.List;
 @RestController
 public class BootcampApplication {
 
+    public static final String NPS_API_KEY = System.getenv("NPS_API_KEY");
+
     public static void main(String[] args) {
         SpringApplication.run(BootcampApplication.class, args);
     }
@@ -33,6 +35,7 @@ public class BootcampApplication {
     public String getStateParks(@RequestBody String smsBody) throws URISyntaxException {
         //Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         //String smsBody = requestBody.getParameter("Body");
+
         int startIndex = smsBody.indexOf("Body=");
         int endIndex = smsBody.indexOf("&", startIndex);
         String stateCode = smsBody.substring(startIndex+5,endIndex);
@@ -58,7 +61,7 @@ public class BootcampApplication {
             RestTemplate restTemplate = new RestTemplate();
 
             HttpHeaders headers = new HttpHeaders();
-            headers.set("X-Api-Key", "GzrRxz0fuFrPTIO0gLK0saxgtIhNo2PajRrK4S2A");
+            headers.set("X-Api-Key", NPS_API_KEY);
 
             HttpEntity<Void> requestEntity = new HttpEntity<>(null, headers);
 
